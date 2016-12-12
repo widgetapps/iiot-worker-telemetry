@@ -1,0 +1,23 @@
+{
+  "name": "terepac-worker-telemetry",
+  "version": "0.0.1",
+  "description": "Telemetry Worker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://terepac_dp@bitbucket.org/terepac/terepac-worker-telemetry.git"
+  },
+  "author": "Darryl Patterson",
+  "license": "Private",
+  "homepage": "https://bitbucket.org/terepac/terepac-worker-telemetry#readme",
+  "dependencies": {
+    "@terepac/terepac-models": "^0.2.11",
+    "amqplib": "^0.5.1",
+    "json-query": "^2.2.0",
+    "lodash": "^4.17.2",
+    "mongoose": "^4.7.0"
+  }
+}
