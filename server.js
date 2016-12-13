@@ -6,7 +6,9 @@ var init = require('./init')(),
     mongoose = require('mongoose'),
     Telemetry = require('@terepac/terepac-models').Telemetry;
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.db);
+
 var amqp = require('amqplib').connect(config.amqp);
 
 amqp.then(function(conn) {
