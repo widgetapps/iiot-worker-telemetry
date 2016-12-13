@@ -3,10 +3,11 @@
 
 var init = require('./init')(),
     config = require('./config'),
+    mongoose = require('mongoose'),
     Telemetry = require('@terepac/terepac-models').Telemetry;
 
+mongoose.connect(config.db);
 var amqp = require('amqplib').connect(config.amqp);
-
 
 amqp.then(function(conn) {
     return conn.createChannel();

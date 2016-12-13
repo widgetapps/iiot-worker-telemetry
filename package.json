@@ -11,7 +11,7 @@
     "url": "git+https://terepac_dp@bitbucket.org/terepac/terepac-worker-telemetry.git"
   },
   "author": "Darryl Patterson",
-  "license": "Private",
+  "license": "LicenseRef-LICENSE",
   "homepage": "https://bitbucket.org/terepac/terepac-worker-telemetry#readme",
   "dependencies": {
     "@terepac/terepac-models": "^0.2.11",
