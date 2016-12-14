@@ -14,7 +14,7 @@ var amqp = require('amqplib').connect(config.amqp);
 amqp.then(function(conn) {
     return conn.createChannel();
 }).then(function(ch) {
-    var q = 'one.telemetry';
+    var q = 'telemetry';
 
     return ch.assertQueue(q).then(function(ok) {
         return ch.consume(q, function(msg) {
