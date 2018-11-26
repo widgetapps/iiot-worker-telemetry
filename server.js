@@ -31,9 +31,9 @@ amqp.then(function(conn) {
 
             if (msg.fields.routingKey === 'telemetry') {
                 document = new Telemetry(insert);
-            } else if (msg.fields.routingKey === 'event') {
-                document = new EventTelemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
+                document = new EventTelemetry(insert);
+            } else if (msg.fields.routingKey === 'event') {
                 document = new Event(insert);
             }
 
