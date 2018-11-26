@@ -37,7 +37,7 @@ amqp.then(function(conn) {
                 document = new Event(insert);
             }
 
-            console.log(msg.fields.routingKey + ' - ' + insert); return;
+            console.log(msg.fields.routingKey + ' - ' + JSON.stringify(insert)); return;
 
             if (document === '') return;
 
