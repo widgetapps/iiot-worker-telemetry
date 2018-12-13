@@ -34,10 +34,13 @@ amqp.then(function(conn) {
             let document = '';
 
             if (msg.fields.routingKey === 'telemetry') {
+                console.log('Create telemetry document.');
                 document = new Telemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
+                console.log('Create event telemetry document.');
                 document = new EventTelemetry(insert);
             } else if (msg.fields.routingKey === 'event') {
+                console.log('Create event document.');
                 document = new Event(insert);
             }
 
