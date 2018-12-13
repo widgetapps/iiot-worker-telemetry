@@ -24,7 +24,7 @@ amqp.then(function(conn) {
 
     ch.assertExchange(ex, 'direct', {durable: true});
 
-    return ch.assertQueue('telemetry', {exclusive: true, durable: true}).then(function(ok) {
+    return ch.assertQueue('telemetry', {exclusive: true}).then(function(ok) {
         ch.bindQueue('telemetry', ex, 'telemetry');
         ch.bindQueue('telemetry', ex, 'event');
         ch.bindQueue('telemetry', ex, 'event_telemetry');
