@@ -2,16 +2,20 @@
 
 require('./init')();
 
-var config = require('./config'),
+let config = require('./config'),
     mongoose = require('mongoose'),
     Telemetry = require('@terepac/terepac-models').Telemetry,
     Event = require('@terepac/terepac-models').Event,
     EventTelemetry = require('@terepac/terepac-models').EventTelemetry;
 
-mongoose.Promise = global.Promise;
-mongoose.connect(config.db);
+let dbOptions = {
+    useNewUrlParser: true
+};
 
-var amqp = require('amqplib').connect(config.amqp);
+mongoose.Promise = global.Promise;
+mongoose.connect(config.db, dbOptions);
+
+let amqp = require('amqplib').connect(config.amqp);
 
 amqp.then(function(conn) {
     return conn.createChannel();

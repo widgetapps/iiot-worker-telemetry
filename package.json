@@ -14,10 +14,8 @@
   "license": "LicenseRef-LICENSE",
   "homepage": "https://bitbucket.org/terepac/terepac-worker-telemetry#readme",
   "dependencies": {
-    "@terepac/terepac-models": "^0.6.1",
+    "@terepac/terepac-models": "^0.6.3",
     "amqplib": "^0.5.1",
-    "json-query": "^2.2.0",
-    "lodash": "^4.17.2",
-    "mongoose": "^4.7.0"
+    "mongoose": "^5.3.15"
   }
 }
