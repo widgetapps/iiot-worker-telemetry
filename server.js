@@ -33,16 +33,16 @@ amqp.then(function(conn) {
             let insert = JSON.parse(msg.content.toString());
             let document = '';
 
-            console.log('Got routing key: %s', msg.fields.routingKey);
+            //console.log('Got routing key: %s', msg.fields.routingKey);
 
             if (msg.fields.routingKey === 'telemetry') {
-                console.log('Create telemetry document.');
+                //console.log('Create telemetry document.');
                 document = new Telemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
-                console.log('Create event telemetry document.');
+                //console.log('Create event telemetry document.');
                 document = new EventTelemetry(insert);
             } else if (msg.fields.routingKey === 'event') {
-                console.log('Create event document.');
+                //console.log('Create event document.');
                 document = new Event(insert);
             }
 
