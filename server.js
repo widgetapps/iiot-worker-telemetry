@@ -24,10 +24,10 @@ amqp.then(function(conn) {
 
     ch.assertExchange(ex, 'direct', {durable: true});
 
-    return ch.assertQueue('', {exclusive: true, durable: true}).then(function(ok) {
-        ch.bindQueue(ok.queue, ex, 'telemetry');
-        ch.bindQueue(ok.queue, ex, 'event');
-        ch.bindQueue(ok.queue, ex, 'event_telemetry');
+    return ch.assertQueue('telemetry', {exclusive: true, durable: true}).then(function(ok) {
+        ch.bindQueue('telemetry', ex, 'telemetry');
+        ch.bindQueue('telemetry', ex, 'event');
+        ch.bindQueue('telemetry', ex, 'event_telemetry');
 
         return ch.consume(ok.queue, function(msg) {
             let insert = JSON.parse(msg.content.toString());
@@ -52,7 +52,7 @@ amqp.then(function(conn) {
                 if (err) {
                     console.log('Error: %s', err);
                 } else {
-                    console.log('Saved');
+                    //console.log('Saved');
                     ch.ack(msg);
                 }
             });
