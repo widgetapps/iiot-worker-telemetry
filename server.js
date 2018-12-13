@@ -33,6 +33,8 @@ amqp.then(function(conn) {
             let insert = JSON.parse(msg.content.toString());
             let document = '';
 
+            console.log('Got routing key: %s', msg.fields.routingKey);
+
             if (msg.fields.routingKey === 'telemetry') {
                 console.log('Create telemetry document.');
                 document = new Telemetry(insert);
