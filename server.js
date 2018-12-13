@@ -29,7 +29,7 @@ amqp.then(function(conn) {
         ch.bindQueue('telemetry', ex, 'event');
         ch.bindQueue('telemetry', ex, 'event_telemetry');
 
-        return ch.consume(ok.queue, function(msg) {
+        return ch.consume('telemetry', function(msg) {
             let insert = JSON.parse(msg.content.toString());
             let document = '';
 
