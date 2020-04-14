@@ -85,7 +85,7 @@ amqp.then(function(conn) {
                 return;
             }
 
-            console.log(JSON.stringify(document));
+            //console.log(JSON.stringify(document));
             document.save(function (err, t) {
                 console.log('Save called');
                 if (err) {
