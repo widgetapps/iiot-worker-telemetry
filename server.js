@@ -92,6 +92,7 @@ amqp.then(function(conn) {
                 //document = new EventTelemetry(insert);
 
                 EventTelemetry.create(insert, function(err) {
+                    console.log('Event Telemetry created?');
                     if (err) {
                         debugLog('DB Error: ' + err);
                         ch.nack(msg, true);
