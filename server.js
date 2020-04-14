@@ -85,6 +85,7 @@ amqp.then(function(conn) {
                 return;
             }
 
+            console.log(JSON.stringify(document));
             document.save(function (err, t) {
                 console.log('Save called');
                 if (err) {
@@ -102,7 +103,6 @@ amqp.then(function(conn) {
 }).catch(function (err) {
     debugLog('RabbitMQ Error: ' + JSON.stringify(err));
 });
-
 
 function debugLog(message) {
     let date = new Date();
