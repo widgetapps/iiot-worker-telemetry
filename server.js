@@ -66,62 +66,25 @@ amqp.then(function(conn) {
             }
 
             let insert = JSON.parse(msg.content.toString());
-            insert.created = new Date();
-
             let document = '';
 
             //console.log('Got routing key: %s', msg.fields.routingKey);
 
             if (msg.fields.routingKey === 'telemetry') {
                 //console.log('Create telemetry document.');
-                //document = new Telemetry(insert);
-
-                Telemetry.create(insert, function(err) {
-                    if (err) {
-                        debugLog('DB Error: ' + err);
-                        ch.nack(msg, true);
-                    } else {
-                        //console.log('Saved');
-                        ch.ack(msg);
-                    }
-                });
-
+                document = new Telemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
                 //console.log('Create event telemetry document.');
                 //console.log(JSON.stringify(insert));
-                //document = new EventTelemetry(insert);
-
-                EventTelemetry.create(insert, function(err) {
-                    console.log('Event Telemetry created?');
-                    if (err) {
-                        debugLog('DB Error: ' + err);
-                        ch.nack(msg, true);
-                    } else {
-                        //console.log('Saved');
-                        ch.ack(msg);
-                    }
-                });
-
+                document = new EventTelemetry(insert);
             } else if (msg.fields.routingKey === 'event') {
                 //console.log('Create event document.');
-                //document = new Event(insert);
-
-                Event.create(insert, function(err) {
-                    if (err) {
-                        debugLog('DB Error: ' + err);
-                        ch.nack(msg, true);
-                    } else {
-                        //console.log('Saved');
-                        ch.ack(msg);
-                    }
-                });
-
+                document = new Event(insert);
             } else {
                 ch.nack(msg);
                 return;
             }
 
-            /*
             document.save(function (err, t) {
                 console.log('Save called');
                 if (err) {
@@ -132,7 +95,6 @@ amqp.then(function(conn) {
                     ch.ack(msg);
                 }
             });
-             */
 
         }, {noAck: false});
     });
