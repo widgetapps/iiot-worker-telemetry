@@ -90,7 +90,7 @@ amqp.then(function(conn) {
                     debugLog('DB Error: ' + err);
                     ch.nack(msg, true);
                 } else {
-                    //console.log('Saved');
+                    console.log('Saved');
                     ch.ack(msg);
                 }
             });
