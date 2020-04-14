@@ -70,7 +70,9 @@ amqp.then(function(conn) {
         }, {noAck: false});
     });
 
-}).catch(console.warn);
+}).catch(function (err) {
+    debugLog('RabbitMQ Error: ' + JSON.stringify(err));
+});
 
 
 function debugLog(message) {
