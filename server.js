@@ -41,7 +41,7 @@ conn.on('reconnected', function () {
 conn.on('disconnected', function() {
     dbConnected = false;
     debugLog('Disconnected from MongoDB.');
-    mongoose.connect(config.db, config.dbOptions);
+    mongoose.connect(config.db, dbOptions);
 });
 
 mongoose.connect(config.db, dbOptions);
@@ -72,7 +72,7 @@ amqp.then(function(conn) {
             //console.log('Got routing key: %s', msg.fields.routingKey);
 
             if (msg.fields.routingKey === 'telemetry') {
-                //console.log('Create telemetry document.');
+                console.log('Create telemetry document.');
                 document = new Telemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
                 //console.log('Create event telemetry document.');
