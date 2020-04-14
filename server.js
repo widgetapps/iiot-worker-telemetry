@@ -13,7 +13,15 @@ let dbOptions = {
 };
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db, dbOptions);
+//mongoose.connect(config.db, dbOptions);
+
+mongoose.connect(config.db, dbOptions, function(err) {
+    if (err) {
+        debugLog('Error connecting to MongoDB.');
+    } else {
+        debugLog('Connected to MongoDB');
+    }
+});
 
 let amqp = require('amqplib').connect(config.amqp);
 
@@ -61,3 +69,39 @@ amqp.then(function(conn) {
     });
 
 }).catch(console.warn);
+
+
+function debugLog(message) {
+    let date = new Date();
+    console.log(date.toISOString() + ' ' + message);
+}
+
+/**
+ * Handle the different ways an application can shutdown
+ */
+
+function handleAppExit (options, err) {
+    if (err) {
+        debugLog('App Exit Error: ' + JSON.stringify(err));
+    }
+
+    if (options.cleanup) {
+        // Cleanup
+    }
+
+    if (options.exit) {
+        process.exit();
+    }
+}
+
+process.on('exit', handleAppExit.bind(null, {
+    cleanup: true
+}));
+
+process.on('SIGINT', handleAppExit.bind(null, {
+    exit: true
+}));
+
+process.on('uncaughtException', handleAppExit.bind(null, {
+    exit: true
+}));
