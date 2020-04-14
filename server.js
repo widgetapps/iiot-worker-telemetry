@@ -9,7 +9,8 @@ let config = require('./config'),
     EventTelemetry = require('@terepac/terepac-models').EventTelemetry;
 
 let dbOptions = {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true
 };
 
 mongoose.Promise = global.Promise;
