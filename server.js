@@ -85,6 +85,7 @@ function debugLog(message) {
  */
 
 function handleAppExit (options, err) {
+    debugLog('App Exit!');
     if (err) {
         debugLog('App Exit Error: ' + JSON.stringify(err));
     }
