@@ -87,6 +87,7 @@ amqp.then(function(conn) {
             document.save(function (err, t) {
                 if (err) {
                     debugLog('DB Error: ' + err);
+                    ch.nack(msg, true);
                 } else {
                     //console.log('Saved');
                     ch.ack(msg);
