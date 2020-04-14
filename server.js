@@ -10,7 +10,8 @@ let config = require('./config'),
 
 let dbOptions = {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
 };
 
 let dbConnected = false;
