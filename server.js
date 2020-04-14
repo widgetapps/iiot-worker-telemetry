@@ -52,13 +52,14 @@ amqp.then(function(conn) {
             } else if (msg.fields.routingKey === 'event') {
                 //console.log('Create event document.');
                 document = new Event(insert);
+            } else {
+                ch.ack(msg);
+                return;
             }
-
-            if (document === '') return;
 
             document.save(function (err, t) {
                 if (err) {
-                    console.log('Error: %s', err);
+                    debugLog('DB Error: ' + err);
                 } else {
                     //console.log('Saved');
                     ch.ack(msg);
