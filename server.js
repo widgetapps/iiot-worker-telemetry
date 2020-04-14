@@ -72,7 +72,7 @@ amqp.then(function(conn) {
             //console.log('Got routing key: %s', msg.fields.routingKey);
 
             if (msg.fields.routingKey === 'telemetry') {
-                console.log('Create telemetry document.');
+                //console.log('Create telemetry document.');
                 document = new Telemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
                 //console.log('Create event telemetry document.');
@@ -93,7 +93,7 @@ amqp.then(function(conn) {
                     debugLog('DB Error: ' + err);
                     ch.nack(msg, true);
                 } else {
-                    console.log('Saved');
+                    console.log('Saved (' + msg.fields.routingKey + '): ' + JSON.stringify(t));
                     ch.ack(msg);
                 }
             });
