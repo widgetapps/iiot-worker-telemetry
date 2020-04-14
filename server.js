@@ -13,16 +13,37 @@ let dbOptions = {
     useCreateIndex: true
 };
 
+let dbConnected = false;
+
 mongoose.Promise = global.Promise;
 //mongoose.connect(config.db, dbOptions);
 
-mongoose.connect(config.db, dbOptions, function(err) {
-    if (err) {
-        debugLog('Error connecting to MongoDB.');
-    } else {
-        debugLog('Connected to MongoDB');
-    }
+let conn = mongoose.connection;
+conn.on('connecting', function() {
+    debugLog('Connecting to MongoDB...');
 });
+conn.on('error', function(error) {
+    console.error('Error in MongoDB connection: ' + error);
+    mongoose.disconnect();
+});
+conn.on('connected', function() {
+    dbConnected = true;
+    debugLog('Connected to MongoDB.');
+});
+conn.once('open', function() {
+    debugLog('Connection to MongoDB open.');
+});
+conn.on('reconnected', function () {
+    dbConnected = true;
+    debugLog('Reconnected to MongoDB');
+});
+conn.on('disconnected', function() {
+    dbConnected = false;
+    debugLog('Disconnected from MongoDB.');
+    mongoose.connect(config.db, config.dbOptions);
+});
+
+mongoose.connect(config.db, dbOptions);
 
 let amqp = require('amqplib').connect(config.amqp);
 
@@ -39,6 +60,11 @@ amqp.then(function(conn) {
         ch.bindQueue('telemetry', ex, 'event_telemetry');
 
         return ch.consume('telemetry', function(msg) {
+            if (!dbConnected) {
+                ch.nack(msg, true);
+                return;
+            }
+
             let insert = JSON.parse(msg.content.toString());
             let document = '';
 
@@ -54,7 +80,7 @@ amqp.then(function(conn) {
                 //console.log('Create event document.');
                 document = new Event(insert);
             } else {
-                ch.ack(msg);
+                ch.nack(msg);
                 return;
             }
 
