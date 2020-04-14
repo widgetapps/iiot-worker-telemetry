@@ -74,7 +74,7 @@ amqp.then(function(conn) {
                 //console.log('Create telemetry document.');
                 document = new Telemetry(insert);
             } else if (msg.fields.routingKey === 'event_telemetry') {
-                //console.log('Create event telemetry document.');
+                console.log('Create event telemetry document.');
                 document = new EventTelemetry(insert);
             } else if (msg.fields.routingKey === 'event') {
                 //console.log('Create event document.');
