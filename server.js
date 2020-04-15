@@ -88,12 +88,12 @@ amqp.then(function(conn) {
 
             //console.log(JSON.stringify(document));
             document.save(function (err, t) {
-                console.log('Save called');
+                //console.log('Save called');
                 if (err) {
                     debugLog('DB Error: ' + err);
                     ch.nack(msg, true);
                 } else {
-                    console.log('Saved (' + msg.fields.routingKey + '): ' + JSON.stringify(t));
+                    //console.log('Saved (' + msg.fields.routingKey + '): ' + JSON.stringify(t));
                     ch.ack(msg);
                 }
             });
